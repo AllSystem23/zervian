@@ -11,7 +11,7 @@ namespace Zorvian.Web.Controllers.Fleet;
 
 [ApiController]
 [Authorize]
-[Route("fleet/palmtrack")]
+[Route("zorvian/v1/fleet/palmtrack")]
 public sealed class FleetPalmtrackController : ControllerBase
 {
     private readonly PalmTrackFleetMapper _mapper;

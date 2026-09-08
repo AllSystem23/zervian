@@ -7,7 +7,7 @@ namespace Zorvian.Web.Controllers.Admin;
 
 [ApiController]
 [Authorize]
-[Route("admin/palmtrack/identity-mappings")]
+[Route("zorvian/v1/admin/palmtrack/identity-mappings")]
 public sealed class ExternalIdentityMappingsController : ControllerBase
 {
     private readonly IExternalIdentityMappingService _service;

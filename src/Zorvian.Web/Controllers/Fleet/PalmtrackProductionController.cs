@@ -12,7 +12,7 @@ namespace Zorvian.Web.Controllers.Fleet;
 
 [ApiController]
 [Authorize]
-[Route("palmtrack/production")]
+[Route("zorvian/v1/palmtrack/production")]
 public sealed class PalmtrackProductionController : ControllerBase
 {
     private readonly ZorvianDbContext _db;
