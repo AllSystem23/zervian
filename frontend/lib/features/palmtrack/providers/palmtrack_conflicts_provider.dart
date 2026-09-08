@@ -89,7 +89,7 @@ final class PalmTrackConflictsNotifier
     state = state.copyWith(loading: true, error: null);
     try {
       final dio = ref.read(dioClientProvider);
-      final response = await dio.get('/fleet/palmtrack/conflicts');
+      final response = await dio.get('fleet/palmtrack/conflicts');
       final data = response.data;
 
       state = PalmTrackConflictsState(
@@ -118,7 +118,7 @@ final class PalmTrackConflictsNotifier
     state = state.copyWith(resolvingId: referenceId);
     try {
       final dio = ref.read(dioClientProvider);
-      await dio.post('/fleet/palmtrack/conflicts/$referenceId/resolve', data: {
+      await dio.post('fleet/palmtrack/conflicts/$referenceId/resolve', data: {
         'acceptExternal': acceptExternal,
       });
 

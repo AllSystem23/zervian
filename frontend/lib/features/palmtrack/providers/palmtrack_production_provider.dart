@@ -146,7 +146,7 @@ final class PalmTrackProductionNotifier
       if (state.endDate != null) {
         queryParams['endDate'] = DateFormat('yyyy-MM-dd').format(state.endDate!);
       }
-      final response = await dio.get('/palmtrack/production/summary', params: queryParams);
+      final response = await dio.get('palmtrack/production/summary', params: queryParams);
       final data = response.data;
 
       state = PalmTrackProductionState(

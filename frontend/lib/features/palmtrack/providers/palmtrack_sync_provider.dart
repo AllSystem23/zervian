@@ -169,9 +169,9 @@ final class PalmTrackSyncNotifier extends Notifier<PalmTrackSyncState> {
     try {
       final dio = ref.read(dioClientProvider);
       final results = await Future.wait([
-        dio.get('/fleet/palmtrack/stats'),
-        dio.get('/fleet/palmtrack/references'),
-        dio.get('/zorvian/v1/palm/webhooks/dlq').catchError(
+        dio.get('fleet/palmtrack/stats'),
+        dio.get('fleet/palmtrack/references'),
+        dio.get('zorvian/v1/palm/webhooks/dlq').catchError(
               (_) => Response(
                 data: [],
                 statusCode: 404,

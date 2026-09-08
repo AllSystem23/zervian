@@ -43,7 +43,7 @@ class _PalmTrackSalesPageState extends ConsumerState<PalmTrackSalesPage> {
     _nextCursor = null;
     try {
       final dio = ref.read(dioClientProvider);
-      final response = await dio.get('/palmtrack/sales-logs', params: {
+      final response = await dio.get('palmtrack/sales-logs', params: {
         'limit': 50,
       });
       final data = response.data as Map<String, dynamic>? ?? {};
@@ -70,7 +70,7 @@ class _PalmTrackSalesPageState extends ConsumerState<PalmTrackSalesPage> {
     setState(() => _loading = true);
     try {
       final dio = ref.read(dioClientProvider);
-      final response = await dio.get('/palmtrack/sales-logs', params: {
+      final response = await dio.get('palmtrack/sales-logs', params: {
         'limit': 50,
         'startAfter': _nextCursor,
       });

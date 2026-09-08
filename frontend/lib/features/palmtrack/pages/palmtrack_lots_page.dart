@@ -42,7 +42,7 @@ class _PalmTrackLotsPageState extends ConsumerState<PalmTrackLotsPage> {
     _nextCursor = null;
     try {
       final dio = ref.read(dioClientProvider);
-      final response = await dio.get('/palmtrack/lots', params: {'limit': 50});
+      final response = await dio.get('palmtrack/lots', params: {'limit': 50});
       final data = response.data as Map<String, dynamic>? ?? {};
       final items = (data['items'] as List? ?? [])
           .whereType<Map<String, dynamic>>()
@@ -67,7 +67,7 @@ class _PalmTrackLotsPageState extends ConsumerState<PalmTrackLotsPage> {
     setState(() => _loading = true);
     try {
       final dio = ref.read(dioClientProvider);
-      final response = await dio.get('/palmtrack/lots', params: {
+      final response = await dio.get('palmtrack/lots', params: {
         'limit': 50,
         'startAfter': _nextCursor,
       });

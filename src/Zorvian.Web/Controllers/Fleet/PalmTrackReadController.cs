@@ -288,31 +288,70 @@ public sealed class PalmTrackReadController : ControllerBase
             }
 
             // Parse response
-            using var doc = JsonDocument.Parse(body);
-            var root = doc.RootElement;
+            List<JsonElement> itemsList;
+            JsonElement? paginationEl = null;
+            JsonElement? metaEl = null;
 
-            // PalmTrack API returns { success, data, pagination, meta }
-            // Mapeamos al formato esperado por el frontend
-            var itemsList = new List<JsonElement>();
-            if (root.TryGetProperty("data", out var dataEl))
-                foreach (var item in dataEl.EnumerateArray()) itemsList.Add(item);
-            else if (root.TryGetProperty("items", out var itemsEl))
-                foreach (var item in itemsEl.EnumerateArray()) itemsList.Add(item);
-            else
-                foreach (var item in root.EnumerateArray()) itemsList.Add(item);
+            try
+            {
+                using var doc = JsonDocument.Parse(body);
+                var root = doc.RootElement;
 
-            var pagination = root.TryGetProperty("pagination", out var pagEl)
-                ? (JsonElement?)JsonSerializer.Deserialize<JsonElement>(pagEl.GetRawText())
-                : null;
-            var meta = root.TryGetProperty("meta", out var metaEl)
-                ? (JsonElement?)JsonSerializer.Deserialize<JsonElement>(metaEl.GetRawText())
-                : null;
+                // PalmTrack API returns { success, data, pagination, meta }
+                // Mapeamos al formato esperado por el frontend
+                if (root.TryGetProperty("data", out var dataEl) && dataEl.ValueKind == JsonValueKind.Array)
+                {
+                    itemsList = new List<JsonElement>();
+                    foreach (var item in dataEl.EnumerateArray()) itemsList.Add(item);
+                }
+                else if (root.TryGetProperty("items", out var itemsEl) && itemsEl.ValueKind == JsonValueKind.Array)
+                {
+                    itemsList = new List<JsonElement>();
+                    foreach (var item in itemsEl.EnumerateArray()) itemsList.Add(item);
+                }
+                else if (root.ValueKind == JsonValueKind.Array)
+                {
+                    itemsList = new List<JsonElement>();
+                    foreach (var item in root.EnumerateArray()) itemsList.Add(item);
+                }
+                else
+                {
+                    _logger.LogWarning(
+                        "PalmTrack Read API returned unexpected response format for endpoint={Endpoint}. RootKind={RootKind}, Body={Body}",
+                        endpoint, root.ValueKind, body.Length > 500 ? body.Substring(0, 500) : body);
+
+                    return StatusCode(502, new
+                    {
+                        error = "Bad Gateway",
+                        message = "PalmTrack Read API returned an unexpected response format",
+                        detail = $"Expected array or {{data/items: [...]}} but got {root.ValueKind}",
+                    });
+                }
+
+                if (root.TryGetProperty("pagination", out var pagProp))
+                    paginationEl = pagProp;
+                if (root.TryGetProperty("meta", out var metaProp))
+                    metaEl = metaProp;
+            }
+            catch (JsonException jex)
+            {
+                _logger.LogError(jex,
+                    "Invalid JSON from PalmTrack Read API: endpoint={Endpoint}, body={Body}",
+                    endpoint, body.Length > 500 ? body.Substring(0, 500) : body);
+
+                return StatusCode(502, new
+                {
+                    error = "Bad Gateway",
+                    message = "PalmTrack Read API returned invalid JSON",
+                    detail = jex.Message,
+                });
+            }
 
             var result = (object)new
             {
                 items = itemsList,
-                pagination = pagination,
-                meta = meta,
+                pagination = paginationEl,
+                meta = metaEl,
             };
 
             return Ok(result);
