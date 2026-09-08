@@ -224,12 +224,27 @@ public sealed class PalmTrackReadController : ControllerBase
         if (!IsReadApiConfigured || !IsAllowedPalmTrackUrl(ReadApiBaseUrl!))
         {
             _logger.LogWarning(
-                "PalmTrack Read API not configured or URL not allowed. Endpoint={Endpoint}",
-                endpoint);
+                "PalmTrack Read API not configured or URL not allowed. Endpoint={Endpoint}, Url={Url}",
+                endpoint, ReadApiBaseUrl);
             return StatusCode(503, new
             {
                 error = "PalmTrack Read API not configured",
                 message = "Contact your administrator to configure PalmTrack:ReadApiBaseUrl and PalmTrack:ReadApiKey",
+                detail = !IsReadApiConfigured
+                    ? "PalmTrack:ReadApiBaseUrl is not configured"
+                    : "PalmTrack:ReadApiBaseUrl is not a whitelisted PalmTrack URL",
+            });
+        }
+
+        if (string.IsNullOrWhiteSpace(ReadApiKey))
+        {
+            _logger.LogWarning(
+                "PalmTrack Read API key is empty. Endpoint={Endpoint}",
+                endpoint);
+            return StatusCode(503, new
+            {
+                error = "PalmTrack Read API not configured",
+                message = "Contact your administrator to configure PalmTrack:ReadApiKey",
             });
         }
 
@@ -237,6 +252,7 @@ public sealed class PalmTrackReadController : ControllerBase
         {
             using var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(ReadApiBaseUrl!);
+            client.Timeout = TimeSpan.FromSeconds(15);
 
             // Build query string
             var queryParts = queryParams
@@ -251,10 +267,8 @@ public sealed class PalmTrackReadController : ControllerBase
 
             var request = new HttpRequestMessage(HttpMethod.Get, uri);
 
-            if (!string.IsNullOrWhiteSpace(ReadApiKey))
-            {
-                request.Headers.Add("X-PalmTrack-API-Key", ReadApiKey!);
-            }
+            request.Headers.Add("X-PalmTrack-API-Key", ReadApiKey!);
+            request.Headers.Add("Accept", "application/json");
 
             var response = await client.SendAsync(request);
             var body = await response.Content.ReadAsStringAsync();
@@ -303,15 +317,40 @@ public sealed class PalmTrackReadController : ControllerBase
 
             return Ok(result);
         }
+        catch (HttpRequestException ex)
+        {
+            _logger.LogError(ex,
+                "Network error proxying to PalmTrack Read API: endpoint={Endpoint}, url={Url}",
+                endpoint, ReadApiBaseUrl);
+            return StatusCode(502, new
+            {
+                error = "Bad Gateway",
+                message = "Cannot reach PalmTrack Read API",
+                detail = "Check that PalmTrack:ReadApiBaseUrl is reachable from this server",
+            });
+        }
+        catch (TaskCanceledException ex)
+        {
+            _logger.LogError(ex,
+                "Timeout proxying to PalmTrack Read API: endpoint={Endpoint}, url={Url}",
+                endpoint, ReadApiBaseUrl);
+            return StatusCode(504, new
+            {
+                error = "Gateway Timeout",
+                message = "PalmTrack Read API did not respond in time",
+                detail = "Check PalmTrack:ReadApiBaseUrl and network connectivity",
+            });
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex,
-                "Error proxying to PalmTrack Read API: endpoint={Endpoint}",
-                endpoint);
+                "Error proxying to PalmTrack Read API: endpoint={Endpoint}, url={Url}",
+                endpoint, ReadApiBaseUrl);
             return StatusCode(500, new
             {
                 error = "Internal error",
                 message = "Error communicating with PalmTrack Read API",
+                detail = "Check server logs for details",
             });
         }
     }
