@@ -20,7 +20,7 @@ namespace Zorvian.Web.Controllers.Fleet;
 /// </summary>
 [ApiController]
 [Authorize]
-[Route("palmtrack")]
+[Route("zorvian/v1/palmtrack")]
 public sealed class PalmTrackReadController : ControllerBase
 {
     private readonly IHttpClientFactory _httpClientFactory;
