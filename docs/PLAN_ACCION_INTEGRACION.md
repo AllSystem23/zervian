@@ -38,7 +38,7 @@
 
 | Item | Descripción | Prioridad | Estado | Evidencia |
 |------|-------------|:---------:|:------:|-----------|
-| ~~M-1~~ | Agregar tests a módulos sin cobertura | Alta | ✅ **Completo** (parcial IA) | 97 test files. Sales ✅, Inventory ✅, Purchases ✅, Fleet (13 tests) ✅. IA (SalesPrediction, FinancialAssistant) aún sin tests |
+| ~~M-1~~ | Agregar tests a módulos sin cobertura | Alta | ✅ **Completo** (parcial IA) | 93 test files. Sales ✅, Inventory ✅, Purchases ✅, Fleet (13 tests) ✅. IA (SalesPrediction, FinancialAssistant) aún sin tests |
 | ~~M-2~~ | Agregar FluentValidation a requests faltantes | Media | ✅ **Completo** | `CreditValidators.cs` contiene `CreateQuoteRequestValidator`, `CreateCreditNoteRequestValidator`, `CreateSupplierPaymentRequestValidator`. Registrados via `AddValidatorsFromAssemblyContaining<Program>()` |
 | ~~M-3~~ | UI para Supplier Payments y Supplier Credit Notes | Media | ✅ **Completo** | `supplier_payments/` y `supplier_credit_notes/` features creadas — providers, list pages, form pages, rutas en router, nav items en nav_config |
 | ~~M-4~~ | Eliminar `crm_provider.dart` deprecated | Baja | ✅ **Completo** | Archivo no existe en frontend |

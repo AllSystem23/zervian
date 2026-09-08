@@ -480,6 +480,22 @@ public static class DependencyInjectionExtensions
         services.AddScoped<Zorvian.Application.Services.Fleet.DeliveryTrackingService>();
         services.AddScoped<Zorvian.Application.Services.Fleet.PredictiveMaintenanceService>();
         services.AddScoped<Zorvian.Application.Services.Fleet.FuelAnomalyDetectionService>();
+        services.AddScoped<Zorvian.Infrastructure.Services.Fleet.PalmTrackFleetMapper>();
+
+        // PalmTrack Integration Services
+        services.AddScoped<Zorvian.Application.Interfaces.PalmTrack.IPalmTrackSecretService, Zorvian.Infrastructure.Services.PalmTrack.PalmTrackSecretService>();
+        services.AddScoped<Zorvian.Application.Interfaces.PalmTrack.IPalmTrackIdempotencyService, Zorvian.Infrastructure.Services.PalmTrack.PalmTrackIdempotencyService>();
+        services.AddScoped<Zorvian.Application.Interfaces.PalmTrack.IPalmTrackIdentityService, Zorvian.Infrastructure.Services.PalmTrack.PalmTrackIdentityService>();
+        services.AddScoped<Zorvian.Web.Services.PalmTrack.IPalmTrackWebhookValidator, Zorvian.Web.Services.PalmTrack.PalmTrackWebhookValidator>();
+        services.AddScoped<Zorvian.Application.Interfaces.PalmTrack.IPalmTrackEventMapper, Zorvian.Infrastructure.Services.PalmTrack.PalmTrackEventMapper>();
+        services.AddScoped<Zorvian.Application.Interfaces.PalmTrack.IPalmTrackApiKeyService, Zorvian.Infrastructure.Services.PalmTrack.PalmTrackApiKeyService>();
+        services.AddScoped<Zorvian.Application.Interfaces.PalmTrack.IPalmTrackWriteService, Zorvian.Infrastructure.Services.PalmTrack.PalmTrackWriteService>();
+
+        // External Identity Mapping Service
+        services.AddScoped<Zorvian.Application.Interfaces.IExternalIdentityMappingService, Zorvian.Infrastructure.Services.ExternalIdentityMappingService>();
+
+        // SSO Service (Paso 6)
+        services.AddScoped<Zorvian.Application.Interfaces.ISsoService, Zorvian.Infrastructure.Services.SsoService>();
 
         // AI Services
         services.AddSingleton<AbsenteeismPredictionService>();

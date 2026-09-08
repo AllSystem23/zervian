@@ -267,7 +267,7 @@ Zorvian ERP
 │   │   ├── Domain/                    # WarrantyStateMachine, GoalEngine, InvalidWarrantyStateTransitionException
 │   │   └── Attributes/                # EncryptedAttribute
 │   ├── Zorvian.Application/
-│   │   ├── Services/                  # 134 application services (incl. Fleet, Warranty, CommissionEngine, GoalEngine)
+│   │   ├── Services/                  # 111 application services (incl. Fleet, Warranty, CommissionEngine, GoalEngine)
 │   │   │   ├── Fleet/                 # 29 fleet services
 │   │   │   ├── PayrollStrategies/     # NicaraguaCalculationStrategy, PayrollStrategyBase
 │   │   │   ├── CommissionEngine/      # CommissionCalculator, CommissionEngine, RuleEvaluator
@@ -286,8 +286,7 @@ Zorvian ERP
 │       │   ├── UnitOfWork.cs           # Unit of Work pattern
 │       │   ├── TenantContext.cs        # Tenant resolution
 │       │   ├── Interceptors/           # 7 interceptors (Audit, Immutability, EntityHistory, FileCleanup, TenantAudit, TenantSession, Encryption)
-│       │   └── Seeders/                # 4 seeders (CountryTax, DocumentTemplate, FleetCatalog, SubscriptionPlan)
-│       ├── Repositories/               # 90 core repositories + 23 Fleet repositories = 113 total
+│       │   └── Seeders/                # 4 seeders (CountryTax, DocumentTemplate, FleetCatalog, SubscriptionPlan)│   ├── Repositories/               # 86 core repositories + 23 Fleet repositories = 109 total
 │       ├── Services/                   # 35 infrastructure services
 │       └── Migrations/                 # 13 migraciones (Jun-Jul 2026)
 ├── tests/
@@ -477,7 +476,7 @@ WarrantyCommunicationsController, WarrantyCostsController, WarrantyDashboardCont
 
 ---
 
-## Backend — Services (134 Application + 35 Infrastructure = 169 total)
+## Backend — Services (111 Application + 35 Infrastructure = 146 total)
 
 ### Application Services (`Zorvian.Application/Services/`)
 
@@ -541,9 +540,9 @@ WarrantyService, WarrantyCommunicationService, WarrantyCostService, WarrantyDash
 
 ---
 
-## Backend — Repositories (113 total)
+## Backend — Repositories (109 total)
 
-**Core:** 90 repos en `Repositories/` (AccountRepository, SaleRepository, EmployeeRepository, etc.)
+**Core:** 86 repos en `Repositories/` (AccountRepository, SaleRepository, EmployeeRepository, etc.)
 
 **Fleet:** 23 repos en `Repositories/Fleet/` (VehicleRepository, DriverRepository, TripRepository, GpsPositionRepository, etc.)
 
@@ -631,7 +630,7 @@ WarrantyService, WarrantyCommunicationService, WarrantyCostService, WarrantyDash
 
 ---
 
-## Frontend — Providers Riverpod (76 archivos)
+## Frontend — Providers Riverpod (92 archivos)
 
 Los providers están distribuidos en los directorios de features. Se listan los módulos con su cantidad de providers:
 

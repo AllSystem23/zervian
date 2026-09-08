@@ -264,6 +264,14 @@ public sealed class ZorvianDbContext : DbContext
     public DbSet<Zorvian.Core.Entities.Fleet.FleetAlertRule> FleetAlertRules => Set<Zorvian.Core.Entities.Fleet.FleetAlertRule>();
     public DbSet<Zorvian.Core.Entities.Fleet.VehicleGeofenceState> VehicleGeofenceStates => Set<Zorvian.Core.Entities.Fleet.VehicleGeofenceState>();
 
+    // PalmTrack Integration
+    public DbSet<Zorvian.Core.Entities.Fleet.FleetExternalReference> FleetExternalReferences => Set<Zorvian.Core.Entities.Fleet.FleetExternalReference>();
+    public DbSet<Zorvian.Core.Entities.Fleet.FleetDriverAlias> FleetDriverAliases => Set<Zorvian.Core.Entities.Fleet.FleetDriverAlias>();
+    public DbSet<Zorvian.Core.Entities.PalmTrackWebhookLog> PalmTrackWebhookLogs => Set<Zorvian.Core.Entities.PalmTrackWebhookLog>();
+    public DbSet<Zorvian.Core.Entities.PalmTrackWebhookDlq> PalmTrackWebhookDlqs => Set<Zorvian.Core.Entities.PalmTrackWebhookDlq>();
+    public DbSet<Zorvian.Core.Entities.PalmTrackWebhookSecret> PalmTrackWebhookSecrets => Set<Zorvian.Core.Entities.PalmTrackWebhookSecret>();
+    public DbSet<Zorvian.Core.Entities.ExternalIdentityMapping> ExternalIdentityMappings => Set<Zorvian.Core.Entities.ExternalIdentityMapping>();
+
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.Properties<TenantId>().HaveConversion<string>();

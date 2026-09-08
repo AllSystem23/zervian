@@ -13,7 +13,7 @@ final treasuryServiceProvider = Provider<TreasuryService>((ref) {
 final treasuryBankAccountsProvider = FutureProvider<List<DropdownMenuItem<String>>>((ref) async {
   final dio = ref.read(dioClientProvider);
   try {
-    final res = await dio.get('finance/bank-accounts');
+    final res = await dio.get('bank-accounts');
     final list = res.data as List? ?? [];
     return list.map((b) => DropdownMenuItem(
       value: b['id']?.toString(),

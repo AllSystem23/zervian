@@ -13,7 +13,7 @@
 - **AI/ML**: ML.NET · Vertex AI (ChatService) · RAG (EmbeddingService) · OCR (OcrService)
 - **Infra**: Render.com · Firebase Hosting · CloudFlare · Docker
 - **CI/CD**: GitHub Actions (1 workflow: ci-cd.yml, 5 jobs)
-- **Testing**: xUnit y Moq (backend). Flutter test (frontend). K6 (load testing). 97 archivos de test backend
+- **Testing**: xUnit y Moq (backend). Flutter test (frontend). K6 (load testing). 93 archivos de test backend
 
 ## Documentación: Lo que NO está en el código (actualizar al implementar)
 - ❌ **CQRS/MediatR** — Mencionado en SPEC.md pero 0 referencias en código
@@ -124,9 +124,9 @@
 - **JWT**: 1h access / 7d refresh. NO hay blacklist de tokens revocados
 - **Build status**: `dotnet build` produce 0 errores, 0 warnings ✅
 - **Controllers**: 123 total (87 core + 28 Fleet + 8 Warranty)
-- **Application Services**: 134 archivos (no 93 como dice README antiguo)
-- **Flutter Providers**: 76 archivos (no 92 como dice README antiguo)
-- **Repositories**: 113 total (90 core + 23 Fleet)
+- **Application Services**: 111 archivos
+- **Flutter Providers**: 92 archivos
+- **Repositories**: 109 total (86 core + 23 Fleet)
 - Legacy "Nexora" naming appears in `SPEC.md` and some env defaults
 - [x] Consolidate 3 CI/CD workflows into 1
 - [x] Fix `DataColumn`/`ZColumn` type errors in 5 files

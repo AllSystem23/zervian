@@ -191,6 +191,16 @@ import '../features/fleet/pages/fleet_alerts_page.dart';
 import '../features/fleet/pages/fleet_tracking_page.dart';
 import '../features/fleet/pages/fleet_predictive_page.dart';
 import '../features/fleet/pages/fleet_catalog_page.dart';
+import '../features/palmtrack/pages/palmtrack_sync_page.dart';
+import '../features/palmtrack/pages/palmtrack_conflicts_page.dart';
+import '../features/palmtrack/pages/palmtrack_production_page.dart';
+import '../features/palmtrack/pages/palmtrack_farms_page.dart';
+import '../features/palmtrack/pages/palmtrack_lots_page.dart';
+import '../features/palmtrack/pages/palmtrack_producers_page.dart';
+import '../features/palmtrack/pages/palmtrack_sales_page.dart';
+import '../features/palmtrack/pages/palmtrack_inventory_page.dart';
+import '../features/palmtrack/pages/palmtrack_settings_page.dart';
+import '../features/palmtrack/pages/palmtrack_complete_profile_page.dart';
 import '../features/predictions/pages/sales_predictions_page.dart';
 
 final _routeRoles = <String, List<String>>{
@@ -365,6 +375,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/onboarding',
         name: 'onboarding',
         builder: (_, _) => const OnboardingPage(),
+      ),
+      GoRoute(
+        path: '/palmtrack/complete-profile',
+        name: 'palmtrack-complete-profile',
+        builder: (_, _) => const PalmTrackCompleteProfilePage(),
       ),
       GoRoute(
         path: '/warranties/track',
@@ -1325,6 +1340,52 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
+
+      // ── PalmTrack Integration ──
+      GoRoute(
+        path: '/palmtrack/sync',
+        name: 'palmtrack-sync',
+        builder: (_, _) => const PalmTrackSyncPage(),
+      ),        GoRoute(
+          path: '/palmtrack/conflicts',
+          name: 'palmtrack-conflicts',
+          builder: (_, _) => const PalmTrackConflictsPage(),
+        ),
+        GoRoute(
+          path: '/palmtrack/production',
+          name: 'palmtrack-production',
+          builder: (_, _) => const PalmTrackProductionPage(),
+        ),
+        GoRoute(
+          path: '/palmtrack/farms',
+          name: 'palmtrack-farms',
+          builder: (_, _) => const PalmTrackFarmsPage(),
+        ),
+        GoRoute(
+          path: '/palmtrack/lots',
+          name: 'palmtrack-lots',
+          builder: (_, _) => const PalmTrackLotsPage(),
+        ),
+        GoRoute(
+          path: '/palmtrack/producers',
+          name: 'palmtrack-producers',
+          builder: (_, _) => const PalmTrackProducersPage(),
+        ),
+        GoRoute(
+          path: '/palmtrack/sales',
+          name: 'palmtrack-sales',
+          builder: (_, _) => const PalmTrackSalesPage(),
+        ),
+        GoRoute(
+          path: '/palmtrack/inventory',
+          name: 'palmtrack-inventory',
+          builder: (_, _) => const PalmTrackInventoryPage(),
+        ),
+        GoRoute(
+          path: '/palmtrack/settings',
+          name: 'palmtrack-settings',
+          builder: (_, _) => const PalmTrackSettingsPage(),
+        ),
     ],
   );
 });

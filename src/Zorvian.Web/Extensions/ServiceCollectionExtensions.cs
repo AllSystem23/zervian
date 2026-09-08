@@ -317,6 +317,8 @@ public static class ServiceCollectionExtensions
             busConfig.AddConsumer<SaleCancelledConsumer>();
             busConfig.AddConsumer<PaymentReceivedConsumer>();
             busConfig.AddConsumer<EmployeeCreatedConsumer>();
+            busConfig.AddConsumer<PalmTrackWebhookConsumer>();
+            busConfig.AddConsumer<PalmTrackWebhookDlqConsumer>();
 
             var rabbitEnabled = configuration.GetValue<bool>("RabbitMQ:Enabled");
             var host = configuration["RabbitMQ:Host"] ?? "localhost";
