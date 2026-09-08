@@ -77,7 +77,7 @@ final class PalmTrackFeatureFlagsNotifier
   Future<void> load() async {
     try {
       final dio = ref.read(dioClientProvider);
-      final response = await dio.get('/settings/palmtrack/feature-flags');
+      final response = await dio.get('/zorvian/v1/settings/palmtrack/feature-flags');
       final data = response.data;
       if (data is Map<String, dynamic>) {
         state = PalmTrackFeatureFlags.fromJson(data);
@@ -110,7 +110,7 @@ final class PalmTrackFeatureFlagsNotifier
     try {
       final dio = ref.read(dioClientProvider);
       await dio.put(
-        '/settings/palmtrack/feature-flags',
+        '/zorvian/v1/settings/palmtrack/feature-flags',
         data: state.toJson(),
       );
     } catch (_) {

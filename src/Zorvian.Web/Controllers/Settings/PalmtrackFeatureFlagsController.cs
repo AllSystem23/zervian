@@ -6,7 +6,7 @@ namespace Zorvian.Web.Controllers.Settings;
 
 [ApiController]
 [Authorize]
-[Route("settings/palmtrack")]
+[Route("zorvian/v1/settings/palmtrack")]
 public sealed class PalmtrackFeatureFlagsController : ControllerBase
 {
     private readonly IConfiguration _configuration;
@@ -17,7 +17,7 @@ public sealed class PalmtrackFeatureFlagsController : ControllerBase
     }
 
     /// <summary>
-    /// GET /settings/palmtrack/feature-flags
+    /// GET /zorvian/v1/settings/palmtrack/feature-flags
     /// Retorna los feature flags de PalmTrack desde la configuración del backend.
     /// El frontend usa esto para saber qué funcionalidades están habilitadas
     /// sin depender de valores por defecto hardcodados.
@@ -39,7 +39,7 @@ public sealed class PalmtrackFeatureFlagsController : ControllerBase
     }
 
     /// <summary>
-    /// PUT /settings/palmtrack/feature-flags
+    /// PUT /zorvian/v1/settings/palmtrack/feature-flags
     /// Actualiza los feature flags de PalmTrack.
     /// NOTA: Esta operación modifica la configuración en memoria para la sesión actual.
     /// Para persistencia permanente, se debe modificar appsettings.json o usar
